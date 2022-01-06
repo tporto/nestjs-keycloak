@@ -7,6 +7,13 @@ export class AppController {
 
   @Get()
   getHello(): string {
+    console.log('aqui');
+    return this.appService.getHello();
+  }
+
+  @Get('/v1')
+  getShit(): string {
+    console.log('aqui');
     return this.appService.getHello();
   }
 }
