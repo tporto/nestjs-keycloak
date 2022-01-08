@@ -32,8 +32,9 @@ services:
       NODE_ENV: "development"
     volumes:
       - .:/app
-    # extra_hosts:
-    #   - "host.docker.internal:192.168.2.11" # Precisa alterar em /etc/hosts e add 127.0.0.1 host.docker.internal
+    extra_hosts:
+      # Precisa alterar em /etc/hosts e add 127.0.0.1 host.docker.internal e reiniciar o pc
+      - host.docker.internal:${MYIP}
     depends_on:
       - db
     networks:
@@ -61,15 +62,16 @@ services:
     ports:
       - 8080:8080
     environment:
-      - KEYCLOAK_USER=admin
-      - KEYCLOAK_PASSWORD=admin
+      # Quando for executar pela primeira vez descomente, depois comente e reinicie os containers
+      #- KEYCLOAK_USER=admin
+      #- KEYCLOAK_PASSWORD=admin
       - PROXY_ADDRESS_FORWARDING=true  #important for reverse proxy
       - DB_VENDOR=postgres
       - DB_USER=postgres
       - DB_PASSWORD=postgres
       - DB_ADDR=db
       - DB_PORT=5432
-      - DB_DATABASE=keycloak
+      - DB_DATABASE=keycloak       
     volumes:
       - ./keycloak/realm-export.json:/tmp/import-realm.json  # exporta a config
     depends_on:
