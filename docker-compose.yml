@@ -37,7 +37,7 @@ services:
     networks:
       - nest-web
     extra_hosts:
-      - host.docker.internal:host-gateway     
+      - host.docker.internal:host-gateway
 
   db:    
     image: 'postgres:12-alpine' 
